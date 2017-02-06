@@ -19,7 +19,17 @@ body.collection {
 
 .collection-album-container .caption {
   margin-top: 10px;
+  -webkit-transition: width 2s, height 2s, background-color 2s, -webkit-transform 2s;
+    transition: width 2s, height 2s, background-color 2s, transform 2s;
 }
+
+.collection-album-container .caption:hover {
+  margin-top: 10px;
+  background-color: #FFAA00;
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
 
 .collection-album-container .caption p {
   font-size: 1rem;
