@@ -30,6 +30,32 @@ var albumMarconi = {
   ]
 };
 
+// 3rd Example Album
+var albumPororo = {
+  title: 'Pororo Sing Along',
+  artist: 'Pororo Band',
+  label: 'Iconix',
+  year: '2015',
+  albumArtUrl: 'assets/images/album_covers/PororoBand.jpg',
+  songs: [
+    { title: 'Opening', duration: '0:38' },
+    { title: 'Rabbit Frog', duration: '3:00' },
+    { title: 'Good Morning', duration: '3:01' },
+    { title: 'Hide and Seek', duration: '3:00' },
+    { title: 'Playing with Numbers', duration: '3:01' },
+    { title: 'Rainbow', duration: '3:01' },
+    { title: 'Naughty Boy', duration: '3:00' },
+    { title: 'Good Child', duration: '3:00' },
+    { title: 'For Sure', duration: '3:00' },
+    { title: 'Ding Dong Dang', duration: '3:00' },
+    { title: 'Para Pam', duration: '3:01' },
+    { title: 'It\'s Alright', duration: '2:59' },
+    { title: 'Mommy Pig, Baby Pig', duration: '3:01' },
+    { title: 'Lovely Baby Bear', duration: '3:00' },
+    { title: 'Ending', duration: '0:28' }
+  ]
+};
+
 var createSongRow = function (songNumber, songName, songLength) {
    var template =
       '<tr class="album-view-song-item">'
@@ -42,15 +68,15 @@ var createSongRow = function (songNumber, songName, songLength) {
    return template;
  };
 
+// #1
+var albumTitle = document.getElementsByClassName('album-view-title')[0];
+var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
 var setCurrentAlbum = function(album) {
-  // #1
-  var albumTitle = document.getElementsByClassName('album-view-title')[0];
-  var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-  var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-  var albumImage = document.getElementsByClassName('album-cover-art')[0];
-  var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
-
+  
   // #2
   albumTitle.firstChild.nodeValue = album.title;
   albumArtist.firstChild.nodeValue = album.artist;
@@ -65,7 +91,23 @@ var setCurrentAlbum = function(album) {
      albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
   }
 };
+
+// This empty array will be used as an array of albums to be looped over when users click the album cover art to toggle between various albums
+var albumArray = []
  
 window.onload = function() {
- setCurrentAlbum(albumPicasso);
+  setCurrentAlbum(albumPicasso);
+   
+  var index = 1
+  
+  albumImage.addEventListener("click", function(event) {
+    albumArray.push(albumPicasso, albumMarconi, albumPororo);
+    setCurrentAlbum(albumArray[index]);
+    index++;
+    if (index == albumArray.length) {
+      index == 0;
+    }
+  })
+  
 };
+
