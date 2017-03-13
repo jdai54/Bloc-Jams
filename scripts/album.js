@@ -119,7 +119,7 @@ var setCurrentAlbum = function(album) {
   }
 };
 
-// helper method that returns the index of a song fund in album's songs array
+// helper method that returns the index of a song found in album's songs array
 var trackIndex = function(album, song) {
   return album.songs.indexOf(song);
 };
@@ -130,6 +130,18 @@ var updatePlayerBarSong = function() {
   $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
   // updates the HTML of the play/pause button to the cotent of the playerBarPauseButton
   $('.main-controls .play-pause').html(playerBarPauseButton);
+};
+
+var togglePlayFromPlayerBar = function() {
+  var songNumber = parseInt($(currentlyPlayingSongNumber).attr('song-item-number'));
+  if (currentSoundFile.isPaused()) {
+    $(songNumber).html(pauseButtonTemplate);
+    $('.main-controls .play-pause').html(playerBarPauseButton);
+    currentSoundFile.play();
+  } else {
+    $(songNumber).html(playButtonTemplate);$('.main-controls .play-pause').html(playerBarPlayButton);
+    currentSoundFile.pause();
+  }
 };
 
 var nextSong = function() {
@@ -210,9 +222,13 @@ var currentVolume = 80;
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
 
+var $playerPlayPause = $('.main-controls .play-pause');
+
 $(document).ready(function() {
   setCurrentAlbum(albumPicasso);
   // jQuery click event handlers on each respective variable
   $previousButton.click(previousSong);
   $nextButton.click(nextSong);
+  // jQuery click event handler for play/pause from the bar
+  $playerPlayPause.click(togglePlayFromPlayerBar);
 });
