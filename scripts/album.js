@@ -1,7 +1,26 @@
 // Create a setSong function that takes one argument, songNumber, and assigns currentlyPlayingSongNumber and currentSongFromAlbum a new value based on the new song number.
 var setSong = function(songNumber) {
+  // to prevent concurrent playback the conditional statement checks for a defined currentSoundFile and then stops it if true
+  if (currentSoundFile) {
+    currentSoundFile.stop();
+  }
+  
   currentlyPlayingSongNumber = parseInt(songNumber);
-  currentSongFromAlbum = currentAlbum.songs[songNumber - 1];  
+  currentSongFromAlbum = currentAlbum.songs[songNumber - 1]; 
+  // assign a new Buzz sound object. The audio file is passed via the audioUrl proerty ont he currentSongFromAlbum object
+  currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
+    // passed in a settings object that has two properties defined, formats and preload. formats is an array of strings with acceptable audio formats. Setting the preload property to true tells Buzz that we want the mp3s loaded as soon as the page loads
+    formats: [ 'mp3' ],
+    preload: true
+  });
+  
+  setVolume(currentVolume);
+};
+
+var setVolume = function(volume) {
+  if (currentSoundFile) {
+    currentSoundFile.setVolume(volume);
+  }
 };
 
 var getSongNumberCell = function(number) {
@@ -25,20 +44,30 @@ var createSongRow = function (songNumber, songName, songLength) {
 	if (currentlyPlayingSongNumber !== null) {
       // Revert to song number for currently playing song because user started playing new song.
       var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
+      
+      currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
       currentlyPlayingCell.html(currentlyPlayingSongNumber);
 	}
+                                
 	if (currentlyPlayingSongNumber !== songNumber) {
-      // Switch from Play -> Pause button to indicate new song is playing.
-      $(this).html(pauseButtonTemplate);
+      // Switch from Play -> Pause button to indicate new song is playing and play the song
       setSong(songNumber);
+      currentSoundFile.play();
+      $(this).html(pauseButtonTemplate);
       updatePlayerBarSong();
 	} else if (currentlyPlayingSongNumber === songNumber) {
-      // Switch from Pause -> Play button to pause currently playing song.
-      $(this).html(playButtonTemplate);
-      $('.main-controls .play-pause').html(playerBarPlayButton);
-      currentlyPlayingSongNumber = null;
-      currentSongFromAlbum = null;
-	}
+      // if the user clicks on the play/pause button for the same song that is playing, check if the currentSoundFile is paused and switch from Pause -> Play button and vice versa
+      if (currentSoundFile.isPaused()) {
+        $(this).html(pauseButtonTemplate);
+        $('.main-controls .play-pause').html(playerBarPauseButton);
+        currentSoundFile.play();
+      } else {
+        $(this).html(playButtonTemplate);$('.main-controls .play-pause').html(playerBarPlayButton);
+        currentSoundFile.pause();
+      }
+      
+    }
+    
   };
   
   var onHover = function(event) {
@@ -115,9 +144,9 @@ var nextSong = function() {
   if (currentSongIndex >= currentAlbum.songs.length) {
     currentSongIndex = 0;
   }
-  // Set a new current song
+  // Set a new current song and play it
   setSong(currentSongIndex + 1);
-  
+  currentSoundFile.play();
   // Update the Player Bar information to show the new song
   updatePlayerBarSong();
   
@@ -143,8 +172,9 @@ var previousSong = function() {
   if (currentSongIndex < 0) {
     currentSongIndex = currentAlbum.songs.length - 1;
   }
-  // Set a new current song
+  // Set a new current song and play it
   setSong(currentSongIndex + 1);
+  currentSoundFile.play();
   
   // Update the Player Bar information to show the new song
   updatePlayerBarSong();
@@ -172,6 +202,10 @@ var currentAlbum = null;
 var currentlyPlayingSongNumber = null;
 // Added variable below to hold the curently playing song object from the songs array
 var currentSongFromAlbum = null;
+// use the currentSongFile variable to store the sound object when we set a new current song
+var currentSoundFile = null;
+// Buzz sound object methods for handling volume are based on a scale of 0-100
+var currentVolume = 80;
 // create variables to hold jQuery selectors for the next and previous buttons
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
