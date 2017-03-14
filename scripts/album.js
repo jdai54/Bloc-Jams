@@ -133,13 +133,14 @@ var updatePlayerBarSong = function() {
 };
 
 var togglePlayFromPlayerBar = function() {
-  var songNumber = parseInt($(currentlyPlayingSongNumber).attr('song-item-number'));
+  var songNumber = getSongNumberCell(currentlyPlayingSongNumber);
   if (currentSoundFile.isPaused()) {
     $(songNumber).html(pauseButtonTemplate);
-    $('.main-controls .play-pause').html(playerBarPauseButton);
+    $playerPlayPause.html(playerBarPauseButton);
     currentSoundFile.play();
   } else {
-    $(songNumber).html(playButtonTemplate);$('.main-controls .play-pause').html(playerBarPlayButton);
+    $(songNumber).html(playButtonTemplate);
+    $playerPlayPause.html(playerBarPlayButton);
     currentSoundFile.pause();
   }
 };
