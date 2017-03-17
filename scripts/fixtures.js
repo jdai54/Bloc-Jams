@@ -13,17 +13,45 @@ var albumPicasso = {
   ]
 };
 
-var albumMarconi = {
-  title: 'The Telephone',
-  artist: 'Guglielmo Marconi',
-  label: 'EM',
-  year: '1909',
-  albumArtUrl: 'assets/images/album_covers/20.png',
+var albumGoblin = {
+  title: 'Goblin OST',
+  artist: 'Chan Yeol of EXO feat. Punch',
+  label: 'CJ E&M Music',
+  year: '2016',
+  albumArtUrl: 'assets/images/album_covers/goblin.jpg',
   songs: [
-    { title: 'Hello, Operator?', duration: '1:01' },
-    { title: 'Ring, ring, ring', duration: '5:01' },
-    { title: 'Fits in your pocket', duration: '3:21' },
-    { title: 'Can you hear me now?', duration: '3:14' },
-    { title: 'Wrong phone number', duration: '2:15' }
+    { title: 'Stay With Me', duration: 384.00, audioUrl: 'assets/music/staywithme' },
+    { title: 'My Eyes', duration: 314.00, audioUrl: 'assets/music/myeyes' },
+    { title: 'Hush', duration: 490.00, audioUrl: 'assets/music/hush' },
+    { title: 'Beautiful', duration: 455.00, audioUrl: 'assets/music/beautiful' },
+    { title: 'You Are So Beautiful', duration: 392.00, audioUrl: 'assets/music/youaresobeautful' },
+    { title: 'Who Are You', duration: 510.00, audioUrl: 'assets/music/whoareyou'},
+    { title: 'I Miss You', duration: 340.00, audioUrl: 'assets/music/imissyou'}
   ]
 };
+
+var albumPororo = {
+  title: 'Pororo Sing Along',
+  artist: 'Pororo Band',
+  label: 'Iconix',
+  year: '2015',
+  albumArtUrl: 'assets/images/album_covers/PororoBand.jpg',
+  songs: [
+    { title: 'Opening', duration: '0:38' },
+    { title: 'Rabbit Frog', duration: '3:00' },
+    { title: 'Good Morning', duration: '3:01' },
+    { title: 'Hide and Seek', duration: '3:00' },
+    { title: 'Playing with Numbers', duration: '3:01' },
+    { title: 'Rainbow', duration: '3:01' },
+    { title: 'Naughty Boy', duration: '3:00' },
+    { title: 'Good Child', duration: '3:00' },
+    { title: 'For Sure', duration: '3:00' },
+    { title: 'Ding Dong Dang', duration: '3:00' },
+    { title: 'Para Pam', duration: '3:01' },
+    { title: 'It\'s Alright', duration: '2:59' },
+    { title: 'Mommy Pig, Baby Pig', duration: '3:01' },
+    { title: 'Lovely Baby Bear', duration: '3:00' },
+    { title: 'Ending', duration: '0:28' }
+  ]
+};
+

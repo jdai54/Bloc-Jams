@@ -10,7 +10,7 @@ var setSong = function(songNumber) {
   // assign a new Buzz sound object. The audio file is passed via the audioUrl proerty ont he currentSongFromAlbum object
   currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
     // passed in a settings object that has two properties defined, formats and preload. formats is an array of strings with acceptable audio formats. Setting the preload property to true tells Buzz that we want the mp3s loaded as soon as the page loads
-    formats: [ 'mp3' ],
+    formats: [ 'mp3', 'mp4' ],
     preload: true
   });
   
@@ -304,7 +304,7 @@ var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
 
 $(document).ready(function() {
-  setCurrentAlbum(albumPicasso);
+  setCurrentAlbum(albumGoblin);
   setupSeekBars();
   // jQuery click event handlers on each respective variable
   $previousButton.click(previousSong);
