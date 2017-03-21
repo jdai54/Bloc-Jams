@@ -20,13 +20,13 @@ var albumGoblin = {
   year: '2016',
   albumArtUrl: 'assets/images/album_covers/goblin.jpg',
   songs: [
-    { title: 'Stay With Me', duration: 384.00, audioUrl: 'assets/music/staywithme' },
-    { title: 'My Eyes', duration: 314.00, audioUrl: 'assets/music/myeyes' },
-    { title: 'Hush', duration: 490.00, audioUrl: 'assets/music/hush' },
-    { title: 'Beautiful', duration: 455.00, audioUrl: 'assets/music/beautiful' },
-    { title: 'You Are So Beautiful', duration: 392.00, audioUrl: 'assets/music/youaresobeautful' },
-    { title: 'Who Are You', duration: 510.00, audioUrl: 'assets/music/whoareyou'},
-    { title: 'I Miss You', duration: 340.00, audioUrl: 'assets/music/imissyou'}
+    { title: 'Stay With Me', duration: 192.05, audioUrl: 'assets/music/staywithme' },
+    { title: 'My Eyes', duration: 157.08, audioUrl: 'assets/music/myeyes' },
+    { title: 'Hush', duration: 245.06, audioUrl: 'assets/music/hush' },
+    { title: 'Beautiful', duration: 227.65, audioUrl: 'assets/music/beautiful' },
+    { title: 'You Are So Beautiful', duration: 196.02, audioUrl: 'assets/music/youaresobeautiful' },
+    { title: 'Who Are You', duration: 255.12, audioUrl: 'assets/music/whoareyou'},
+    { title: 'I Miss You', duration: 170.09, audioUrl: 'assets/music/imissyou'}
   ]
 };
 

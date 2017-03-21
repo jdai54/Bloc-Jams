@@ -10,7 +10,7 @@ var setSong = function(songNumber) {
   // assign a new Buzz sound object. The audio file is passed via the audioUrl proerty ont he currentSongFromAlbum object
   currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
     // passed in a settings object that has two properties defined, formats and preload. formats is an array of strings with acceptable audio formats. Setting the preload property to true tells Buzz that we want the mp3s loaded as soon as the page loads
-    formats: [ 'mp3', 'mp4' ],
+    formats: [ 'mp4' ],
     preload: true
   });
   
@@ -40,7 +40,7 @@ var createSongRow = function (songNumber, songName, songLength) {
     '<tr class="album-view-song-item">'
   + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
   + '  <td class="song-item-title">' + songName + '</td>'
-  + '  <td class="song-item-duration">' + songLength + '</td>'
+  + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
   + '</tr>'
   ;
 
@@ -136,6 +136,11 @@ var setCurrentAlbum = function(album) {
   }
 };
 
+var setCurrentTimeInPlayerBar = function(currentTime) {
+  var currentTime = currentSoundFile.getTime();
+  $('.current-time').html(currentTime);
+};
+
 var updateSeekBarWhileSongPlays = function() {
   if (currentSoundFile) {
     // bind() the timeupdate event to currentSoundFile. timeupdate is a custom Buzz event that fires repeatedly while time elapses during song playback
@@ -145,6 +150,7 @@ var updateSeekBarWhileSongPlays = function() {
       var $seekBar = $('.seek-control .seek-bar');
       
       updateSeekPercentage($seekBar, seekBarFillRatio);
+      setCurrentTimeInPlayerBar();
     });
   }
 };
@@ -216,12 +222,39 @@ var trackIndex = function(album, song) {
   return album.songs.indexOf(song);
 };
 
+var setTotalTimeInPlayerBar = function(totalTime) {
+  if (currentSoundFile) {
+    // bind() the timeupdate event to currentSoundFile. timeupdate is a custom Buzz event that fires repeatedly while time elapses during song playback
+    currentSoundFile.bind('timeupdate', function(event) {
+      // use Buzz's getTime() method for calculating the seekBarFillRatio. It gets the current time of the song and we use the getDuration() method for getting the total length of the song. Both values return time in seconds
+      var totalTime = this.getDuration();
+      $('.total-time').html(filterTimeCode(totalTime));
+    });
+  }
+};
+
+var setCurrentTimeInPlayerBar = function(currentTime) {
+  var currentTime = currentSoundFile.getTime();
+  $('.current-time').html(filterTimeCode(currentTime));
+};
 var updatePlayerBarSong = function() {
   $('.currently-playing .song-name').text(currentSongFromAlbum.title);
   $('.currently-playing .artist-name').text(currentAlbum.artist);
   $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
   // updates the HTML of the play/pause button to the cotent of the playerBarPauseButton
   $('.main-controls .play-pause').html(playerBarPauseButton);
+  setTotalTimeInPlayerBar();
+};
+
+var filterTimeCode = function(timeInSeconds) {
+  var numberOfSeconds = parseFloat(timeInSeconds);
+  var wholeSeconds = (Math.floor(numberOfSeconds % 60));
+  var wholeMinutes = (Math.floor(numberOfSeconds / 60));
+  if (wholeSeconds < 10 ) {
+    return wholeMinutes + ":0" + wholeSeconds;
+  } else {
+  return wholeMinutes + ":" + wholeSeconds; 
+  };
 };
 
 var previousSong = function() {
