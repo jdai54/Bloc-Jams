@@ -246,6 +246,30 @@ var updatePlayerBarSong = function() {
   setTotalTimeInPlayerBar();
 };
 
+var togglePlayFromPlayerBar = function() {
+  console.log(currentlyPlayingSongNumber);
+  var songNumber = getSongNumberCell(currentlyPlayingSongNumber);
+  if (currentSoundFile == null) {
+    setSong(1);
+    currentlyPlayingSongNumber = 1;
+    songNumber = 1;
+    var firstSong = getSongNumberCell(currentlyPlayingSongNumber);
+    $(firstSong).html(pauseButtonTemplate);    
+    $playerPlayPause.html(playerBarPauseButton);
+    currentSoundFile.play();
+    updatePlayerBarSong();
+    updateSeekBarWhileSongPlays();
+  } else if (currentSoundFile.isPaused()) {
+    $(songNumber).html(pauseButtonTemplate);    
+    $playerPlayPause.html(playerBarPauseButton);
+    currentSoundFile.play();
+    } else {
+      $(songNumber).html(playButtonTemplate);
+      $playerPlayPause.html(playerBarPlayButton);
+      currentSoundFile.pause();
+  }
+};
+
 var filterTimeCode = function(timeInSeconds) {
   var numberOfSeconds = parseFloat(timeInSeconds);
   var wholeSeconds = (Math.floor(numberOfSeconds % 60));
@@ -335,6 +359,7 @@ var currentVolume = 80;
 // create variables to hold jQuery selectors for the next and previous buttons
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
+var $playerPlayPause = $('.main-controls .play-pause');
 
 $(document).ready(function() {
   setCurrentAlbum(albumGoblin);
@@ -342,4 +367,5 @@ $(document).ready(function() {
   // jQuery click event handlers on each respective variable
   $previousButton.click(previousSong);
   $nextButton.click(nextSong);
+  $playerPlayPause.click(togglePlayFromPlayerBar);
 });
