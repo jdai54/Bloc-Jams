@@ -247,7 +247,6 @@ var updatePlayerBarSong = function() {
 };
 
 var togglePlayFromPlayerBar = function() {
-  console.log(currentlyPlayingSongNumber);
   var songNumber = getSongNumberCell(currentlyPlayingSongNumber);
   if (currentSoundFile == null) {
     setSong(1);
