@@ -24,7 +24,7 @@ var albumGoblin = {
     { title: 'My Eyes', duration: 314.00, audioUrl: 'assets/music/myeyes' },
     { title: 'Hush', duration: 490.00, audioUrl: 'assets/music/hush' },
     { title: 'Beautiful', duration: 455.00, audioUrl: 'assets/music/beautiful' },
-    { title: 'You Are So Beautiful', duration: 392.00, audioUrl: 'assets/music/youaresobeautful' },
+    { title: 'You Are So Beautiful', duration: 392.00, audioUrl: 'assets/music/youaresobeautiful' },
     { title: 'Who Are You', duration: 510.00, audioUrl: 'assets/music/whoareyou'},
     { title: 'I Miss You', duration: 340.00, audioUrl: 'assets/music/imissyou'}
   ]
